@@ -1,0 +1,2 @@
+class AffectionsController < ApplicationController
+end

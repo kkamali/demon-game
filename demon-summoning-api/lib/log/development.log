@@ -1,0 +1,134 @@
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ /Users/kathleenkamali/.rvm/gems/ruby-2.6.3/bin/rake:23
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  ↳ /Users/kathleenkamali/.rvm/gems/ruby-2.6.3/bin/rake:23
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  ↳ /Users/kathleenkamali/.rvm/gems/ruby-2.6.3/bin/rake:23
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /Users/kathleenkamali/.rvm/gems/ruby-2.6.3/bin/rake:23
+Migrating to CreatePlayers (20200211183102)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /Users/kathleenkamali/.rvm/gems/ruby-2.6.3/bin/rake:23
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "players" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  ↳ db/migrate/20200211183102_create_players.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20200211183102"]]
+  ↳ /Users/kathleenkamali/.rvm/gems/ruby-2.6.3/bin/rake:23
+  [1m[35m (1.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /Users/kathleenkamali/.rvm/gems/ruby-2.6.3/bin/rake:23
+Migrating to CreateDemons (20200211183130)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /Users/kathleenkamali/.rvm/gems/ruby-2.6.3/bin/rake:23
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "demons" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "title" varchar, "personality" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  ↳ db/migrate/20200211183130_create_demons.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20200211183130"]]
+  ↳ /Users/kathleenkamali/.rvm/gems/ruby-2.6.3/bin/rake:23
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /Users/kathleenkamali/.rvm/gems/ruby-2.6.3/bin/rake:23
+Migrating to CreateSummons (20200211183201)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /Users/kathleenkamali/.rvm/gems/ruby-2.6.3/bin/rake:23
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "summons" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "player_id" integer, "demon_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_95621bf2d8"
+FOREIGN KEY ("player_id")
+  REFERENCES "players" ("id")
+, CONSTRAINT "fk_rails_12492656f9"
+FOREIGN KEY ("demon_id")
+  REFERENCES "demons" ("id")
+)[0m
+  ↳ db/migrate/20200211183201_create_summons.rb:3
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_summons_on_player_id" ON "summons" ("player_id")[0m
+  ↳ db/migrate/20200211183201_create_summons.rb:3
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_summons_on_demon_id" ON "summons" ("demon_id")[0m
+  ↳ db/migrate/20200211183201_create_summons.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20200211183201"]]
+  ↳ /Users/kathleenkamali/.rvm/gems/ruby-2.6.3/bin/rake:23
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /Users/kathleenkamali/.rvm/gems/ruby-2.6.3/bin/rake:23
+Migrating to CreateSacrifices (20200211183302)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /Users/kathleenkamali/.rvm/gems/ruby-2.6.3/bin/rake:23
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "sacrifices" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "type" varchar, "demon_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_075aefbcb6"
+FOREIGN KEY ("demon_id")
+  REFERENCES "demons" ("id")
+)[0m
+  ↳ db/migrate/20200211183302_create_sacrifices.rb:3
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_sacrifices_on_demon_id" ON "sacrifices" ("demon_id")[0m
+  ↳ db/migrate/20200211183302_create_sacrifices.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20200211183302"]]
+  ↳ /Users/kathleenkamali/.rvm/gems/ruby-2.6.3/bin/rake:23
+  [1m[35m (0.9ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /Users/kathleenkamali/.rvm/gems/ruby-2.6.3/bin/rake:23
+Migrating to CreateDialogues (20200211183416)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /Users/kathleenkamali/.rvm/gems/ruby-2.6.3/bin/rake:23
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "dialogues" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "dialogue" varchar, "affection_level" integer, "demon_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_3bb5af0fe4"
+FOREIGN KEY ("demon_id")
+  REFERENCES "demons" ("id")
+)[0m
+  ↳ db/migrate/20200211183416_create_dialogues.rb:3
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_dialogues_on_demon_id" ON "dialogues" ("demon_id")[0m
+  ↳ db/migrate/20200211183416_create_dialogues.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20200211183416"]]
+  ↳ /Users/kathleenkamali/.rvm/gems/ruby-2.6.3/bin/rake:23
+  [1m[35m (0.9ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /Users/kathleenkamali/.rvm/gems/ruby-2.6.3/bin/rake:23
+Migrating to CreateAffections (20200211183434)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /Users/kathleenkamali/.rvm/gems/ruby-2.6.3/bin/rake:23
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "affections" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "amount" integer, "player_id" integer, "demon_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_a01da91f5e"
+FOREIGN KEY ("player_id")
+  REFERENCES "players" ("id")
+, CONSTRAINT "fk_rails_7ede395a2a"
+FOREIGN KEY ("demon_id")
+  REFERENCES "demons" ("id")
+)[0m
+  ↳ db/migrate/20200211183434_create_affections.rb:3
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_affections_on_player_id" ON "affections" ("player_id")[0m
+  ↳ db/migrate/20200211183434_create_affections.rb:3
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_affections_on_demon_id" ON "affections" ("demon_id")[0m
+  ↳ db/migrate/20200211183434_create_affections.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20200211183434"]]
+  ↳ /Users/kathleenkamali/.rvm/gems/ruby-2.6.3/bin/rake:23
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /Users/kathleenkamali/.rvm/gems/ruby-2.6.3/bin/rake:23
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  ↳ /Users/kathleenkamali/.rvm/gems/ruby-2.6.3/bin/rake:23
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /Users/kathleenkamali/.rvm/gems/ruby-2.6.3/bin/rake:23
+  [1m[36mActiveRecord::InternalMetadata Create (0.4ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2020-02-11 22:57:12.068789"], ["updated_at", "2020-02-11 22:57:12.068789"]]
+  ↳ /Users/kathleenkamali/.rvm/gems/ruby-2.6.3/bin/rake:23
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /Users/kathleenkamali/.rvm/gems/ruby-2.6.3/bin/rake:23
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /Users/kathleenkamali/.rvm/gems/ruby-2.6.3/bin/rake:23
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mDemon Create (0.4ms)[0m  [1m[32mINSERT INTO "demons" ("name", "title", "personality", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["name", "Paimon"], ["title", "King"], ["personality", "megane"], ["created_at", "2020-02-11 22:58:37.517758"], ["updated_at", "2020-02-11 22:58:37.517758"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mDemon Create (0.4ms)[0m  [1m[32mINSERT INTO "demons" ("name", "title", "personality", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["name", "Azazel"], ["title", "Fallen Angel"], ["personality", "oresama"], ["created_at", "2020-02-11 22:59:34.604548"], ["updated_at", "2020-02-11 22:59:34.604548"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mDemon Create (0.4ms)[0m  [1m[32mINSERT INTO "demons" ("name", "title", "personality", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["name", "Vassago"], ["title", "Prince"], ["personality", "playboy"], ["created_at", "2020-02-11 23:00:36.515319"], ["updated_at", "2020-02-11 23:00:36.515319"]]
+  [1m[35m (1.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mDemon Load (0.4ms)[0m  [1m[34mSELECT  "demons".* FROM "demons" WHERE "demons"."name" = ? LIMIT ?[0m  [["name", "Paimon"], ["LIMIT", 1]]
+  [1m[36mDemon Load (0.1ms)[0m  [1m[34mSELECT  "demons".* FROM "demons" WHERE "demons"."name" = ? LIMIT ?[0m  [["name", "Paimon"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mSacrifice Create (0.4ms)[0m  [1m[32mINSERT INTO "sacrifices" ("name", "demon_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "fish skeleton"], ["demon_id", 1], ["created_at", "2020-02-12 03:13:30.768051"], ["updated_at", "2020-02-12 03:13:30.768051"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mSacrifice Load (0.2ms)[0m  [1m[34mSELECT  "sacrifices".* FROM "sacrifices" WHERE "sacrifices"."demon_id" = ? LIMIT ?[0m  [["demon_id", 1], ["LIMIT", 11]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mSacrifice Create (0.3ms)[0m  [1m[32mINSERT INTO "sacrifices" ("name", "demon_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "toy knight"], ["demon_id", 1], ["created_at", "2020-02-12 03:14:13.525883"], ["updated_at", "2020-02-12 03:14:13.525883"]]
+  [1m[35m (1.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mDemon Load (0.1ms)[0m  [1m[34mSELECT  "demons".* FROM "demons" WHERE "demons"."name" = ? LIMIT ?[0m  [["name", "Azazel"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mSacrifice Create (0.3ms)[0m  [1m[32mINSERT INTO "sacrifices" ("name", "demon_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "silver bracelet"], ["demon_id", 2], ["created_at", "2020-02-12 03:15:06.564229"], ["updated_at", "2020-02-12 03:15:06.564229"]]
+  [1m[35m (1.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mSacrifice Create (0.3ms)[0m  [1m[32mINSERT INTO "sacrifices" ("name", "demon_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "goat horn"], ["demon_id", 2], ["created_at", "2020-02-12 03:15:17.921424"], ["updated_at", "2020-02-12 03:15:17.921424"]]
+  [1m[35m (1.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mDemon Load (0.2ms)[0m  [1m[34mSELECT  "demons".* FROM "demons" WHERE "demons"."name" = ? LIMIT ?[0m  [["name", "Vassago"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mSacrifice Create (0.3ms)[0m  [1m[32mINSERT INTO "sacrifices" ("name", "demon_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "gold coins"], ["demon_id", 3], ["created_at", "2020-02-12 03:15:53.459631"], ["updated_at", "2020-02-12 03:15:53.459631"]]
+  [1m[35m (0.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mSacrifice Create (0.3ms)[0m  [1m[32mINSERT INTO "sacrifices" ("name", "demon_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "clear marbles"], ["demon_id", 3], ["created_at", "2020-02-12 03:16:04.952697"], ["updated_at", "2020-02-12 03:16:04.952697"]]
+  [1m[35m (1.1ms)[0m  [1m[36mcommit transaction[0m

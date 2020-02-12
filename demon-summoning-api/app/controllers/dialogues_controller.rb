@@ -1,0 +1,2 @@
+class DialoguesController < ApplicationController
+end

@@ -1,0 +1,2 @@
+class SacrificesController < ApplicationController
+end

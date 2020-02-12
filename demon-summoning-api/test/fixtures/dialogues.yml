@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  dialogue: MyString
+  affection_level: 1
+  demon: one
+
+two:
+  dialogue: MyString
+  affection_level: 1
+  demon: two

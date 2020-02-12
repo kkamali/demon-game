@@ -1,0 +1,2 @@
+class DemonsController < ApplicationController
+end
