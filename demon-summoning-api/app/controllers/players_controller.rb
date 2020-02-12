@@ -1,9 +1,10 @@
 class PlayersController < ApplicationController
   def start
-    player = player.find_by(name: params[:name])
+    player = Player.find_by(name: params[:name])
     if player.nil?
       player = Player.create(name: params[:name])
     end
+    session[:id] = player.id
     render json: player, except: [:created_at, :updated_at]
   end
 
