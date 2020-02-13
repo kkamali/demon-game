@@ -24,6 +24,7 @@ class Player {
       })
       .then(function (info) {
         this.name = info.name
+        this.id = info.id
       }.bind(this))
   }
 }
@@ -93,7 +94,10 @@ function createSummon(sacrifice) {
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({ sacrifice: sacrifice })
+    body: JSON.stringify({
+      player_id: player.id,
+      sacrifice: sacrifice
+    })
   }
   fetch(SUMMONS_URL, configObject)
     .then(function (response) {
