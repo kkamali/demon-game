@@ -45,7 +45,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function createGame() {
   start.setAttribute('hidden', 'true')
-  console.log(player)
   fetch(`${PLAYER_URL}/${player.id}/summons`)
     .then(function (response) {
       return response.json()
@@ -109,5 +108,17 @@ function createSummon(sacrifice) {
 }
 
 function selectASummon(summons) {
-  console.log("TODO")
+  for (summon of summons) {
+    let button = document.createElement('button')
+    button.innerHTML = `${summon.demon.title} ${summon.demon.name}`
+    button.addEventListener('click', function (e) {
+      e.preventDefault()
+      play()
+    })
+    assetsContainer.appendChild(button)
+  }
+}
+
+function play() {
+  console.log("Oh geez")
 }

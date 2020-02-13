@@ -2,7 +2,7 @@ require 'pry'
 class SummonsController < ApplicationController
   def index
     summons = Summon.where(player_id: params[:player_id])
-    render json: summons
+    render json: summons, include: [:demon]
   end
 
   def create
