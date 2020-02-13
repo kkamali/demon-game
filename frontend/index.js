@@ -10,22 +10,9 @@ let player
 let currentSummon
 
 class Player {
-  constructor(name) {
-    let configObject = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ name: name })
-    }
-    fetch(START_GAME_URL, configObject)
-      .then(function (response) {
-        return response.json()
-      })
-      .then(function (info) {
-        this.name = info.name
-        this.id = info.id
-      }.bind(this))
+  constructor(name, id) {
+    this.name = name
+    this.id = id
   }
 }
 
@@ -37,15 +24,29 @@ document.addEventListener('DOMContentLoaded', function () {
     if (playerNameField.value === "") {
       alert("You must fill in your name, human")
     } else {
-      player = new Player(playerNameField.value)
-      createGame(player)
+      let configObject = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ name: playerNameField.value })
+      }
+      fetch(START_GAME_URL, configObject)
+        .then(function (response) {
+          return response.json()
+        })
+        .then(function (info) {
+          player = new Player(info.name, info.id)
+          createGame()
+        })
     }
   })
 })
 
 function createGame() {
   start.setAttribute('hidden', 'true')
-  fetch(SUMMONS_URL)
+  console.log(player)
+  fetch(`${PLAYER_URL}/${player.id}/summons`)
     .then(function (response) {
       return response.json()
     })
