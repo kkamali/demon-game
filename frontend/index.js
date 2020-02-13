@@ -121,6 +121,7 @@ function createSummon(sacrifice) {
     }).then(function (summon) {
       demon = new Demon(summon.demon.name, summon.demon.title, 0)
       currentSummon = new Summon(demon, 0)
+      play()
     })
 }
 
@@ -130,12 +131,12 @@ function selectASummon(summons) {
     button.innerHTML = `${summon.demon.title} ${summon.demon.name}`
     button.addEventListener('click', function (e) {
       e.preventDefault()
-      play(summon.demon)
+      play()
     })
     assetsContainer.appendChild(button)
   }
 }
 
-function play(demon) {
-  console.log(demon)
+function play() {
+  console.log("jdkjfksjflkdjsfkl")
 }

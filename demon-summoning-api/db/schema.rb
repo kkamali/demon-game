@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_12_031238) do
+ActiveRecord::Schema.define(version: 2020_02_13_233404) do
 
   create_table "affections", force: :cascade do |t|
     t.integer "amount"
@@ -18,8 +18,10 @@ ActiveRecord::Schema.define(version: 2020_02_12_031238) do
     t.integer "demon_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "summon_id"
     t.index ["demon_id"], name: "index_affections_on_demon_id"
     t.index ["player_id"], name: "index_affections_on_player_id"
+    t.index ["summon_id"], name: "index_affections_on_summon_id"
   end
 
   create_table "demons", force: :cascade do |t|
@@ -58,6 +60,8 @@ ActiveRecord::Schema.define(version: 2020_02_12_031238) do
     t.integer "demon_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "affection_id"
+    t.index ["affection_id"], name: "index_summons_on_affection_id"
     t.index ["demon_id"], name: "index_summons_on_demon_id"
     t.index ["player_id"], name: "index_summons_on_player_id"
   end
