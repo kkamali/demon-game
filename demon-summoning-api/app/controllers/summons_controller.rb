@@ -9,7 +9,8 @@ class SummonsController < ApplicationController
     sacrifice = Sacrifice.find_by(name: params[:sacrifice])
     demon = sacrifice.demon
     summon = demon.summons.create(player_id: params[:player_id])
-    render json: summon, except: [:created_at]
+    demon.affections.create(player_id: params[:player_id], amount: 0)
+    render json: summon, include: [:demon], except: [:created_at]
   end
 
   private

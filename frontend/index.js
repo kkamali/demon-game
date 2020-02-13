@@ -7,12 +7,28 @@ const gameContainer = document.getElementById('game')
 const assetsContainer = document.getElementById('assets')
 const dialogueContainer = document.getElementById('dialogue')
 let player
+let demon
 let currentSummon
 
 class Player {
   constructor(name, id) {
     this.name = name
     this.id = id
+  }
+}
+
+class Summon {
+  constructor(demon, affection) {
+    this.demon = demon
+    this.affection = affection
+  }
+}
+
+class Demon {
+  constructor(name, title, affection) {
+    this.name = name
+    this.title = title
+    this.affection = affection
   }
 }
 
@@ -103,7 +119,8 @@ function createSummon(sacrifice) {
     .then(function (response) {
       return response.json()
     }).then(function (summon) {
-      console.log(summon)
+      demon = new Demon(summon.demon.name, summon.demon.title, 0)
+      currentSummon = new Summon(demon, 0)
     })
 }
 
@@ -113,12 +130,12 @@ function selectASummon(summons) {
     button.innerHTML = `${summon.demon.title} ${summon.demon.name}`
     button.addEventListener('click', function (e) {
       e.preventDefault()
-      play()
+      play(summon.demon)
     })
     assetsContainer.appendChild(button)
   }
 }
 
-function play() {
-  console.log("Oh geez")
+function play(demon) {
+  console.log(demon)
 }
