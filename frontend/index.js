@@ -18,9 +18,10 @@ class Player {
 }
 
 class Summon {
-  constructor(demon, affection) {
+  constructor(demon, affection, currentPhase) {
     this.demon = demon
     this.affection = affection
+    this.currentPhase = currentPhase
   }
 }
 
@@ -120,7 +121,7 @@ function createSummon(sacrifice) {
       return response.json()
     }).then(function (summon) {
       demon = new Demon(summon.demon.name, summon.demon.title, 0)
-      currentSummon = new Summon(demon, 0)
+      currentSummon = new Summon(demon, 0, 0)
       play()
     })
 }
@@ -132,7 +133,7 @@ function selectASummon(summons) {
     button.addEventListener('click', function (e) {
       e.preventDefault()
       demon = new Demon(summon.demon.name, summon.demon.title, summon.affection.amount)
-      currentSummon = new Summon(demon, summon.affection.amount)
+      currentSummon = new Summon(demon, summon.affection.amount, summon.currentPhase)
       play()
     })
     assetsContainer.appendChild(button)

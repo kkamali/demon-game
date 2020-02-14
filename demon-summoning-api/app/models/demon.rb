@@ -3,4 +3,5 @@ class Demon < ApplicationRecord
   has_many :sacrifices
   has_many :affections
   has_many :players, through: :affections
+  has_many :dialogues
 end
