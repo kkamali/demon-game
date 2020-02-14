@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_14_004832) do
+ActiveRecord::Schema.define(version: 2020_02_14_025756) do
 
   create_table "affections", force: :cascade do |t|
     t.integer "amount"
@@ -38,6 +38,8 @@ ActiveRecord::Schema.define(version: 2020_02_14_004832) do
     t.integer "demon_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "right"
+    t.string "wrong"
     t.index ["demon_id"], name: "index_dialogues_on_demon_id"
   end
 

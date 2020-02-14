@@ -140,5 +140,5 @@ function selectASummon(summons) {
 }
 
 function play() {
-  console.log(currentSummon)
+  assetsContainer.innerHTML = ""
 }
