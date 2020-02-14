@@ -131,6 +131,8 @@ function selectASummon(summons) {
     button.innerHTML = `${summon.demon.title} ${summon.demon.name}`
     button.addEventListener('click', function (e) {
       e.preventDefault()
+      demon = new Demon(summon.demon.name, summon.demon.title, summon.affection.amount)
+      currentSummon = new Summon(demon, summon.affection.amount)
       play()
     })
     assetsContainer.appendChild(button)
@@ -138,5 +140,5 @@ function selectASummon(summons) {
 }
 
 function play() {
-  console.log("jdkjfksjflkdjsfkl")
+  console.log(currentSummon)
 }
