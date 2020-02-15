@@ -18,7 +18,8 @@ class Player {
 }
 
 class Summon {
-  constructor(demon, affection, currentPhase) {
+  constructor(id, demon, affection, currentPhase) {
+    this.id = id
     this.demon = demon
     this.affection = affection
     this.currentPhase = currentPhase
@@ -121,7 +122,7 @@ function createSummon(sacrifice) {
       return response.json()
     }).then(function (summon) {
       demon = new Demon(summon.demon.name, summon.demon.title, 0)
-      currentSummon = new Summon(demon, 0, 0)
+      currentSummon = new Summon(summon.id, demon, 0, 1)
       play()
     })
 }
@@ -133,7 +134,7 @@ function selectASummon(summons) {
     button.addEventListener('click', function (e) {
       e.preventDefault()
       demon = new Demon(summon.demon.name, summon.demon.title, summon.affection.amount)
-      currentSummon = new Summon(demon, summon.affection.amount, summon.currentPhase)
+      currentSummon = new Summon(summon.id, demon, summon.affection.amount, summon.current_phase)
       play()
     })
     assetsContainer.appendChild(button)
@@ -142,4 +143,55 @@ function selectASummon(summons) {
 
 function play() {
   assetsContainer.innerHTML = ""
+  getDialogue()
+  //update everything
+  //get more dialogue
+  //until win or lose
+}
+
+function getDialogue() {
+  fetch(`${SUMMONS_URL}/${currentSummon.id}/dialogues/${currentSummon.currentPhase}`)
+    .then(function (response) {
+      return response.json()
+    }).then(function (dialogue) {
+      let dialogueBox = document.createElement('div')
+      dialogueBox.setAttribute('class', 'dialogue')
+      let speech = document.createElement('p')
+      speech.innerHTML = dialogue[0].dialogue
+      dialogueBox.appendChild(speech)
+      dialogueContainer.appendChild(dialogueBox)
+      let rightChoice = document.createElement('button')
+      rightChoice.addEventListener('click', function (e) {
+        e.preventDefault()
+        goodChoice()
+      })
+      rightChoice.innerHTML = dialogue[0].right
+      let wrongChoice = document.createElement('button')
+      wrongChoice.addEventListener('click', function (e) {
+        e.preventDefault()
+        badChoice()
+      })
+      wrongChoice.innerHTML = dialogue[0].wrong
+      dialogueBox.appendChild(rightChoice)
+      dialogueBox.appendChild(wrongChoice)
+    })
+}
+
+function goodChoice() {
+  currentSummon.affection += 5
+  demon.affection += 5
+  currentSummon.currentPhase += 1
+  let configObject = {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify
+  }
+}
+
+function badChoice() {
+  currentSummon.affection += 5
+  demon.affection += 5
+  currentSummon.currentPhase += 1
 }

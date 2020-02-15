@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   resources :affections, only: [:only, :update]
   resources :dialogues, only: [:show]
-  resources :summons, only: [:create]
+  resources :summons, only: [:create]  do
+    resources :dialogues, only: [:show]
+  end
   resources :sacrifices, only: [:index]
   resources :players, only: [:update] do
     resources :summons, only: [:index]
