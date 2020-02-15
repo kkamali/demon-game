@@ -63,28 +63,15 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(function (info) {
           player = new Player(info.name, info.id)
-          createGame()
+          summon()
         })
     }
   })
 })
 
-function createGame() {
-  start.setAttribute('hidden', 'true')
-  fetch(`${PLAYER_URL}/${player.id}/summons`)
-    .then(function (response) {
-      return response.json()
-    })
-    .then(function (summons) {
-      if (summons.length === 0) {
-        summon()
-      } else {
-        selectASummon(summons)
-      }
-    })
-}
-
 function summon() {
+  start.setAttribute('hidden', 'true')
+  dialogueContainer.innerHTML = ""
   let header = document.createElement('h2')
   header.innerText = "Many objects are before you..."
   let smaller = document.createElement('h3')
@@ -135,27 +122,10 @@ function createSummon(sacrifice) {
     })
 }
 
-function selectASummon(summons) {
-  for (summon of summons) {
-    let button = document.createElement('button')
-    button.innerHTML = `${summon.demon.title} ${summon.demon.name}`
-    button.addEventListener('click', function (e) {
-      e.preventDefault()
-      demon = new Demon(summon.demon.name, summon.demon.title, summon.affection_level)
-      currentSummon = new Summon(summon.id, demon, summon.affection_level, summon.current_phase)
-      play()
-    })
-    assetsContainer.appendChild(button)
-  }
-}
-
 function play() {
   assetsContainer.innerHTML = ""
   dialogueContainer.innerHTML = ""
   getDialogue()
-  //update everything
-  //get more dialogue
-  //until win or lose
 }
 
 function getDialogue() {
@@ -169,20 +139,11 @@ function getDialogue() {
       speech.innerHTML = dialogue[0].dialogue
       dialogueBox.appendChild(speech)
       dialogueContainer.appendChild(dialogueBox)
-      let rightChoice = document.createElement('button')
-      rightChoice.addEventListener('click', function (e) {
-        e.preventDefault()
-        goodChoice()
-      })
-      rightChoice.innerHTML = dialogue[0].right
-      let wrongChoice = document.createElement('button')
-      wrongChoice.addEventListener('click', function (e) {
-        e.preventDefault()
-        badChoice()
-      })
-      wrongChoice.innerHTML = dialogue[0].wrong
-      dialogueBox.appendChild(rightChoice)
-      dialogueBox.appendChild(wrongChoice)
+      if (currentSummon.currentPhase === "win" || currentSummon.currentPhase === "lose") {
+        createEnding(dialogueBox)
+      } else {
+        createChoices(dialogue[0], dialogueBox)
+      }
     })
 }
 
@@ -218,4 +179,38 @@ function updatePhase() {
     }).then(function (summon) {
       play()
     })
+}
+
+function createChoices(dialogue, dialogueBox) {
+  let rightChoice = document.createElement('button')
+  rightChoice.addEventListener('click', function (e) {
+    e.preventDefault()
+    goodChoice()
+  })
+  rightChoice.innerHTML = dialogue.right
+  let wrongChoice = document.createElement('button')
+  wrongChoice.addEventListener('click', function (e) {
+    e.preventDefault()
+    badChoice()
+  })
+  wrongChoice.innerHTML = dialogue.wrong
+  dialogueBox.appendChild(rightChoice)
+  dialogueBox.appendChild(wrongChoice)
+}
+
+function createEnding(dialogueBox) {
+  let ending = document.createElement('p')
+  if (currentSummon.currentPhase === "win") {
+    ending.innerText = "Congratulations -- you narrowly avoided a horrible fate!"
+  } else {
+    ending.innerText = "Oh my, looks like you've met a nasty end!"
+  }
+  let tryAgain = document.createElement('button')
+  tryAgain.innerHTML = "Play again?"
+  tryAgain.addEventListener('click', function (e) {
+    e.preventDefault()
+    summon()
+  })
+  dialogueContainer.appendChild(ending)
+  dialogueContainer.appendChild(tryAgain)
 }
