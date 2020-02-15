@@ -117,7 +117,7 @@ function createSummon(sacrifice) {
       return response.json()
     }).then(function (summon) {
       demon = new Demon(summon.demon.name, summon.demon.title, 0)
-      currentSummon = new Summon(summon.id, demon, 0, 1)
+      currentSummon = new Summon(summon.id, demon, 0, "introduction")
       play()
     })
 }
@@ -198,7 +198,7 @@ function createChoices(dialogue, dialogueBox) {
   dialogueBox.appendChild(wrongChoice)
 }
 
-function createEnding(dialogueBox) {
+function createEnding() {
   let ending = document.createElement('p')
   if (currentSummon.currentPhase === "win") {
     ending.innerText = "Congratulations -- you narrowly avoided a horrible fate!"
