@@ -15,6 +15,6 @@ class SummonsController < ApplicationController
   private
 
   def summon_params
-    params.require(:summon).permit(:player_id, :sacrifice)
+    params.require(:summon).permit(:player_id, :sacrifice, :affection_level)
   end
 end
