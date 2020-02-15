@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_15_172905) do
+ActiveRecord::Schema.define(version: 2020_02_15_181726) do
 
   create_table "demons", force: :cascade do |t|
     t.string "name"
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2020_02_15_172905) do
 
   create_table "dialogues", force: :cascade do |t|
     t.string "dialogue"
-    t.integer "phase"
+    t.string "phase"
     t.integer "demon_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 2020_02_15_172905) do
     t.integer "demon_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "current_phase"
+    t.string "current_phase"
     t.integer "affection_level"
     t.index ["demon_id"], name: "index_summons_on_demon_id"
     t.index ["player_id"], name: "index_summons_on_player_id"

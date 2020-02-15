@@ -1,11 +1,10 @@
 Rails.application.routes.draw do
-  resources :affections, only: [:only, :update]
   resources :dialogues, only: [:show]
-  resources :summons, only: [:create]  do
+  resources :summons, only: [:create, :update]  do
     resources :dialogues, only: [:show]
   end
   resources :sacrifices, only: [:index]
-  resources :players, only: [:update] do
+  resources :players, only: [:start] do
     resources :summons, only: [:index]
   end
   post '/start', to: 'players#start'

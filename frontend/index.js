@@ -32,6 +32,14 @@ class Demon {
     this.title = title
     this.affection = affection
   }
+
+  willEat() {
+    if (this.affection == 10) {
+      currentSummon.currentPhase = "win"
+    } else {
+      currentSummon.currentPhase = "lose"
+    }
+  }
 }
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -133,8 +141,8 @@ function selectASummon(summons) {
     button.innerHTML = `${summon.demon.title} ${summon.demon.name}`
     button.addEventListener('click', function (e) {
       e.preventDefault()
-      demon = new Demon(summon.demon.name, summon.demon.title, summon.affection.amount)
-      currentSummon = new Summon(summon.id, demon, summon.affection.amount, summon.current_phase)
+      demon = new Demon(summon.demon.name, summon.demon.title, summon.affection_level)
+      currentSummon = new Summon(summon.id, demon, summon.affection_level, summon.current_phase)
       play()
     })
     assetsContainer.appendChild(button)
@@ -143,6 +151,7 @@ function selectASummon(summons) {
 
 function play() {
   assetsContainer.innerHTML = ""
+  dialogueContainer.innerHTML = ""
   getDialogue()
   //update everything
   //get more dialogue
@@ -180,18 +189,33 @@ function getDialogue() {
 function goodChoice() {
   currentSummon.affection += 5
   demon.affection += 5
-  currentSummon.currentPhase += 1
-  let configObject = {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ affection_level: currentSummon.affection, current_phase: currentSummon.currentPhase })
-  }
+  updatePhase()
 }
 
 function badChoice() {
-  currentSummon.affection += 5
-  demon.affection += 5
-  currentSummon.currentPhase += 1
+  currentSummon.affection -= 5
+  demon.affection -= 5
+  updatePhase()
+}
+
+function updatePhase() {
+  if (currentSummon.currentPhase === "placating") {
+    demon.willEat()
+  } else {
+    currentSummon.currentPhase = "placating"
+  }
+  let configObject = {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    body: JSON.stringify({ id: currentSummon.id, affection_level: currentSummon.affection, current_phase: currentSummon.currentPhase })
+  }
+  fetch(`${SUMMONS_URL}/${currentSummon.id}`, configObject)
+    .then(function (response) {
+      return response.json()
+    }).then(function (summon) {
+      play()
+    })
 }
