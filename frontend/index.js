@@ -186,7 +186,7 @@ function goodChoice() {
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify
+    body: JSON.stringify({ affection_level: currentSummon.affection, current_phase: currentSummon.currentPhase })
   }
 }
 
