@@ -1,0 +1,22 @@
+body {
+ background-color: black;
+}
+
+h2, h3, p, strong {
+  color: white;
+  font-family: monospace;
+}
+
+p {
+  color: lightgreen;
+}
+
+span, .choice {
+  color: lightpink;
+}
+
+.dialogue {
+  border-style: solid;
+  border-color: grey;
+  padding: 10px;
+}

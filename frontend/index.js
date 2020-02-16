@@ -136,7 +136,7 @@ function getDialogue() {
       let dialogueBox = document.createElement('div')
       dialogueBox.setAttribute('class', 'dialogue')
       let speech = document.createElement('p')
-      speech.innerHTML = dialogue[0].dialogue
+      speech.innerHTML = `<strong>${demon.title} ${demon.name}: </strong> ${dialogue[0].dialogue}`
       dialogueBox.appendChild(speech)
       dialogueContainer.appendChild(dialogueBox)
       if (currentSummon.currentPhase === "win" || currentSummon.currentPhase === "lose") {
@@ -182,17 +182,19 @@ function updatePhase() {
 }
 
 function createChoices(dialogue, dialogueBox) {
-  let rightChoice = document.createElement('button')
+  let rightChoice = document.createElement('p')
+  rightChoice.setAttribute('class', 'choice')
   rightChoice.addEventListener('click', function (e) {
     e.preventDefault()
     goodChoice()
   })
   rightChoice.innerHTML = dialogue.right
-  let wrongChoice = document.createElement('button')
+  let wrongChoice = document.createElement('p')
   wrongChoice.addEventListener('click', function (e) {
     e.preventDefault()
     badChoice()
   })
+  wrongChoice.setAttribute('class', 'choice')
   wrongChoice.innerHTML = dialogue.wrong
   dialogueBox.appendChild(rightChoice)
   dialogueBox.appendChild(wrongChoice)
@@ -205,7 +207,7 @@ function createEnding() {
   } else {
     ending.innerText = "Oh my, looks like you've met a nasty end!"
   }
-  let tryAgain = document.createElement('button')
+  let tryAgain = document.createElement('span')
   tryAgain.innerHTML = "Play again?"
   tryAgain.addEventListener('click', function (e) {
     e.preventDefault()
