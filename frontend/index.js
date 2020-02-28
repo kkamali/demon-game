@@ -182,26 +182,26 @@ function updatePhase() {
 }
 
 function createChoices(dialogue, dialogueBox) {
-  let rightChoice = document.createElement('p')
-  rightChoice.setAttribute('class', 'choice')
+  let ul = document.createElement('ul')
+  let rightChoice = document.createElement('li')
   rightChoice.addEventListener('click', function (e) {
     e.preventDefault()
     goodChoice()
   })
   rightChoice.innerHTML = dialogue.right
-  let wrongChoice = document.createElement('p')
+  let wrongChoice = document.createElement('li')
   wrongChoice.addEventListener('click', function (e) {
     e.preventDefault()
     badChoice()
   })
-  wrongChoice.setAttribute('class', 'choice')
   wrongChoice.innerHTML = dialogue.wrong
-  dialogueBox.appendChild(rightChoice)
-  dialogueBox.appendChild(wrongChoice)
+  ul.appendChild(rightChoice)
+  ul.appendChild(wrongChoice)
+  dialogueBox.appendChild(ul)
 }
 
 function createEnding() {
-  let ending = document.createElement('p')
+  let ending = document.createElement('h1')
   if (currentSummon.currentPhase === "win") {
     ending.innerText = "Congratulations -- you narrowly avoided a horrible fate!"
   } else {

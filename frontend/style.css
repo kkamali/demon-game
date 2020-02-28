@@ -2,7 +2,7 @@ body {
  background-color: black;
 }
 
-h2, h3, p, strong {
+h1, h2, h3, p, strong, span, li {
   color: white;
   font-family: monospace;
 }
@@ -11,8 +11,17 @@ p {
   color: lightgreen;
 }
 
-span, .choice {
+span, li {
   color: lightpink;
+}
+
+h1 {
+  color:  red;
+}
+
+span:hover, li:hover {
+  background-color: white;
+  color: black;
 }
 
 .dialogue {
